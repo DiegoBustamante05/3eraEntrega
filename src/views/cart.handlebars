@@ -1,0 +1,27 @@
+<div>
+    <h1 class="text-center">{{title}}</h1>
+    <div class="container ">
+        <table class="table table-dark ">
+            <thead>
+                <tr>
+                
+                <th scope="col">Title</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            {{#each products}}
+                <tbody>
+                    <tr>
+                    
+                    <td>{{this.title}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.quantity}}</td>
+                    </tr>
+                </tbody>
+            {{/each}}
+        </table>
+    </div>
+</div>
+
+

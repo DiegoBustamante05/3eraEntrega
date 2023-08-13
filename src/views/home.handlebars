@@ -1,0 +1,39 @@
+<div>
+    {{#if firstName}}
+    <h3>Welcome {{firstName}} {{lastName}}</h3>
+    {{/if}}
+    <h1 class="text-center">{{title}}</h1>
+    <div class="container">
+        <div class="row">
+            {{#each products}}
+            <div class="col-md-4">
+                <div class="card text-center m-5">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.title}}</h5>
+                        <p>stock: {{this.stock}}</p>
+                        <p class="card-text fw-bold">$ {{this.price}}</p>
+                    </div>
+                    <div class="card-footer text-muted">
+                        <a href="#" class="btn btn-primary">Comprar</a>
+
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    <div class="container mb-3">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">{{#if hasPrevPage}}
+                <a style='text-decoration: none' href='http://localhost:8080/view/products?page={{prevPage}}'> ⬅️Prev Page </a>
+                {{/if}}
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">Page: {{page}} </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-center">{{#if hasNextPage}}
+                <a style='text-decoration: none' href='http://localhost:8080/view/products?page={{nextPage}}'> Next Page ➡️</a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+</div>

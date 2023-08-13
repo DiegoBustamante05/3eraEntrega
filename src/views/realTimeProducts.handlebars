@@ -1,0 +1,85 @@
+<div>
+    <h1 class="text-center m-5">{{title}}</h1>
+    <div class="container">
+        <div class="row" id="dynamic-product-list" >
+            {{#each products}}
+                    <div class="col-md-4">
+                        <div class="card text-center m-5">
+                            <div class="card-body">
+                                <h5 class="card-title">{{this.title}}</h5>
+                                <p class="card-text">{{this.description}}</p>
+                                <p class="card-text">${{this.price}}</p>
+                                <a href="#" class="btn btn-primary">Comprar</a>
+                            </div>
+                            <div class="card-footer text-muted">
+                                <p>stock: {{this.stock}}</p>
+                            </div>
+                        </div>
+                    </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+<h3 class="text-center m-5">To add a product, please complete the following fields</h3>
+<div class="container">
+    <form id="form-products">
+        <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Title</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="form-title">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="form-description">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Price</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="form-price">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Code</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="form-code">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Stock</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="form-stock">
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Category</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="form-category">
+            </div>
+        </div>
+        <div class="text-center m-5">
+            <button type="submit" class="btn btn-primary">Create product</button>
+        </div>
+        
+    </form>
+    <hr>
+    <h3 class="text-center">To remove a product, enter the id</h3>
+    <div class="container">
+    <form id="delete-product">
+        <div class="row mb-3">
+            <label  class="col-sm-2 col-form-label">Product id</label>
+            <div class="col-sm-10">
+                <input class="form-control" id="form-id" type="number">
+            </div>
+        </div>
+        </div>
+        <div class="text-center m-5">
+            <button type="submit" class="btn btn-primary">Delete product</button>
+        </div>
+    </form>
+
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realtimeproducts.js"></script>

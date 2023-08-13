@@ -1,0 +1,42 @@
+<h3 class="text-center m-5">To create a user, please complete the following fields</h3>
+<div class="container">
+    <form action='/api/sessions/register' method='POST'>
+        <div class="row mb-3">
+            <label  class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-sm-10">
+                <input id='firstName' name='firstName' type='text'/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-sm-10">
+                <input id='lastName' name='lastName' type='text'/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label  class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input id='email' name='email' type='text'/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label  class="col-sm-2 col-form-label">Age</label>
+            <div class="col-sm-10">
+                <input id='age' name='age' type='text'/>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <label  class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input id='password' name='password' type='text'/>
+            </div>
+        </div>                                                                                                                                                     
+        <div class="text-center m-5">
+            <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+    <div class="text-center">
+        <p>already a member? <a href="/login">Login</a></p>
+    </div>
+</div>
+
