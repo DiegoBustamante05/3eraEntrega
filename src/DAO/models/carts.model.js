@@ -4,11 +4,11 @@ import {
 } from 'mongoose';
 
 const cartSchema = new Schema({
-    user: {
+/*    user: {
         type: Schema.Types.ObjectId,
         ref: 'users',
         required: true,
-    },
+    },*/
     products: {
         type: [{
             product: {
