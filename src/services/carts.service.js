@@ -3,6 +3,8 @@ import {
 } from '../DAO/models/carts.model.js';
 import { ProductService } from './products.service.js';
 
+
+
 const productsService = new ProductService();
 
 export class CartService {
@@ -15,6 +17,7 @@ export class CartService {
         });
         return newCart;
     }
+
 
     //obtener carrito por id OK!!
     async getCartById(id) {
@@ -57,6 +60,8 @@ export class CartService {
         } catch (error) {
             throw new Error(error);
         }
+
+    
     }
 
 
@@ -79,9 +84,9 @@ export class CartService {
     }
 
     //eliminar un producto del carrito OK!!
-    async deleteProductInCart(cid, productId) {
+    async deleteProductInCart(cid, pid) {
         const cart = await CartModel.findById(cid);
-        cart.products = cart.products.filter(product => product.product.toString() !== productId);
+        cart.products = cart.products.filter(product => product.product.id.toString() !== pid);
         await cart.save();
     }
 
@@ -89,10 +94,11 @@ export class CartService {
     // actualizar cantidad OK!!
     async updateQuantity(cid, productId, quantity) {
         const cart = await CartModel.findById(cid);
-        const product = cart.products.find(product => product.product.toString() === productId);
+        const product = cart.products.find(product => product.product.id.toString() === productId);
         if (product) {
             product.quantity = quantity;
             await cart.save();
+            
         }
     }
 }

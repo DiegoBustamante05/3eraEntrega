@@ -3,7 +3,6 @@ import handlebars from "express-handlebars";
 import { ProductManager } from "./DAO/productManager.js";
 import { routerProducts } from "./routes/products.router.js";
 import { routerViewProducts } from "./routes/products.view.router.js";
-import { routerViewRealTimeProducts } from "./routes/realtimeproducts.view.router.js";
 import { routerViewCart } from "./routes/cart.view.router.js";
 import { routerCarts } from "./routes/cart.router.js";
 import { routerLogin } from "./routes/login.router.js";
@@ -14,14 +13,14 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import { iniPassport } from "./config/passport.config.js";
 import passport from 'passport';
-
+import { enviroment } from "./utils.js";
 
 
 const app = express();
-const port = 8080;
+const port = enviroment.PORT;
 
 
-//mongodb+srv://diegobustamante:coder2023@bustamantedb.2llatvf.mongodb.net/?retryWrites=true&w=majority
+
 connectMongo();
 
 const productManager = new ProductManager();
@@ -61,7 +60,6 @@ app.use('/api/sessions', routerLogin);
 
 
 app.use("/view/products", routerViewProducts)
-app.use("/view/realtimeproducts", routerViewRealTimeProducts)
 app.use("/view/cart", routerViewCart)
 
 

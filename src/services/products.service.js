@@ -1,8 +1,8 @@
-
 import { ProductModel } from '../DAO/models/products.model.js';
 
 
 export class ProductService {
+
   async getAllProducts(limit, page, query, sort) {
     const sortOption = sort == "asc" ? { price: 1 } : { price: -1 };
     const filter = query ? { category: query } : {};
@@ -36,3 +36,5 @@ export class ProductService {
     return uptadedProduct;
   }
 }
+
+

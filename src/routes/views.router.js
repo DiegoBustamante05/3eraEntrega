@@ -1,5 +1,5 @@
 import express from 'express';
-import { checkAdmin, checkUser, checkUserLoggedIn } from '../middlewares/auth.js';
+import { checkAdmin, checkUser, checkUserLoggedIn, checkUserRole } from '../middlewares/auth.js';
 export const routerViews = express.Router();
 
 routerViews.get('/logout', (req, res) => {
@@ -35,5 +35,9 @@ routerViews.get('/failregister', (req, res) => {
 
 
 routerViews.get('/admin', checkAdmin, (req, res) => {
-    res.send("Welcome to the secret place, if you got here it's because you're an admin!");
+    res.render("admin");
+});
+
+routerViews.get('/chat', checkUserRole, (req, res) => {
+    res.render("chat");
 });
