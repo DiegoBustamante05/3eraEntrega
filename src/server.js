@@ -67,6 +67,8 @@ app.use(express.static(__dirname + "/public"));
 
 app.use("/", routerViews)
 
+
+
 app.get("*", (req, res) => {
     res.status(404).send({
         status: "error",

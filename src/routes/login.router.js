@@ -5,34 +5,52 @@ import {
 } from '../DAO/models/users.model.js';
 import UserDto from '../DAO/DTOs/user.Dto.js';
 import { createHash, isValidPassword } from '../utils.js';
-
+import { CartModel } from '../DAO/models/carts.model.js';
 export const routerLogin = express.Router();
 
 
 
 routerLogin.post('/register', passport.authenticate('register', {
     failureRedirect: '/failregister'
-}), (req, res) => {
+}), async (req, res) => {
     if (!req.user) {
         return res.json({
             error: 'something went wrong'
         });
     }
-    req.session.user = {
-        _id: req.user._id,
-        email: req.user.email,
-        firstName: req.user.firstName,
-        lastName: req.user.lastName,
-        role: req.user.role
-    };
 
-    return res.render('profile', {firstName: req.user.firstName, lastName: req.user.lastName, admin: req.user.admin} );
-});
+    try {
+        // Crear un carrito asociado al usuario
+        const newCart = new CartModel({
+            products: [], 
+        });
 
-routerLogin.get('/failregister', async (req, res) => {
-    return res.json({
-        error: 'fail to register'
-    });
+        // Asociar el carrito al usuario recién registrado
+        req.user.cart = newCart._id;
+
+        // Guardar el carrito y actualizar el usuario
+        await Promise.all([newCart.save(), req.user.save()]);
+
+        req.session.user = {
+            _id: req.user._id,
+            email: req.user.email,
+            firstName: req.user.firstName,
+            lastName: req.user.lastName,
+            role: req.user.role,
+            cart: req.user.cart
+        };
+
+        return res.render('profile', {
+            firstName: req.user.firstName,
+            lastName: req.user.lastName,
+            admin: req.user.admin
+        });
+    } catch (error) {
+        console.error('Error al registrar usuario y carrito:', error);
+        return res.status(500).json({
+            message: 'Error en el servidor'
+        });
+    }
 });
 
 

@@ -4,11 +4,6 @@ import {
 } from 'mongoose';
 
 const cartSchema = new Schema({
-/*    user: {
-        type: Schema.Types.ObjectId,
-        ref: 'users',
-        required: true,
-    },*/
     products: {
         type: [{
             product: {

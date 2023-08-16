@@ -34,3 +34,13 @@ export function checkUserRole(req, res, next) {
     });
 }
 
+export const checkCartOwner = (req, res, next) => {
+    
+    if (req.user && req.user.cart.toString() === req.body.cartId) {
+        next(); 
+    } else {
+        return res.status(403).json({
+            message: 'You do not have permissions to perform this action'
+        });
+    }
+};

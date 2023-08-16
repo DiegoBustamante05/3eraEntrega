@@ -27,6 +27,12 @@ const schema = new Schema({
     age: {
         type: Number,
     },
+    cart: {
+        type: Schema.Types.ObjectId,
+        ref: "carts",
+        required: false,
+        max: 100,
+    },
 });
 
 schema.plugin(mongoosePaginate);
