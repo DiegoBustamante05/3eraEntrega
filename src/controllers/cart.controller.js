@@ -1,8 +1,10 @@
-import { CartService } from "../services/carts.service.js";
+import {
+    CartService
+} from "../services/carts.service.js";
 const Service = new CartService();
 
 class CartsController {
-    async create(req,res) {
+    async create(req, res) {
         try {
             const newCart = await Service.newCart();
             res.status(200).send({
@@ -17,7 +19,7 @@ class CartsController {
         }
     }
 
-    async getById(req,res) {
+    async getById(req, res) {
         const cartId = req.params.cid;
         try {
             const cart = await Service.getCartById(cartId)
@@ -35,7 +37,7 @@ class CartsController {
         }
     }
 
-    async addToCart(req,res) {
+    async addToCart(req, res) {
         try {
             let cid = req.params.cid;
             let pid = req.params.pid;
@@ -54,7 +56,7 @@ class CartsController {
         }
     }
 
-    async clearCart(req,res) {
+    async clearCart(req, res) {
         try {
             const cid = req.params.cid;
             console.log(cid)
@@ -72,7 +74,7 @@ class CartsController {
     }
 
     //revisar
-    async deleteProductById(req,res) {
+    async deleteProductById(req, res) {
         try {
             const cid = req.params.cid;
             const pid = req.params.pid;
@@ -89,7 +91,7 @@ class CartsController {
         }
     }
 
-    async updateProductQuantityInCart(req,res) {
+    async updateProductQuantityInCart(req, res) {
         try {
             const cid = req.params.cid;
             const pid = req.params.pid;
@@ -107,24 +109,43 @@ class CartsController {
         }
     }
 
-    async updateProductsInCart(req,res) {
+    async updateProductsInCart(req, res) {
         try {
             const cid = req.params.cid;
             const products = req.body;
             console.log(products)
             await Service.updateCart(cid, products);
             res.status(200).json({
-                    status: 'success',
-                    message: `product updated`,
-                });
+                status: 'success',
+                message: `product updated`,
+            });
         } catch (error) {
             res.status(500).json({
                 status: 'error',
                 message: error.message,
-            });    
+            });
         }
     }
-    
+
+    async purchase(req, res) {
+        try {
+            const cartId = req.params.cid;
+            const purchaseResult = await Service.purchaseCart(cartId); 
+
+            if (purchaseResult.success) {
+                return res.json({
+                    message: 'Successful',
+                    ticket: purchaseResult.ticket,
+                    data: 'Products out of stock: ' + purchaseResult.productsNotPurchasedIds,
+                });
+            } else {
+                return res.status(400).json({ error: purchaseResult.message });
+            }
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ error: 'Server Error' });
+        }
+    }
 }
 
 export const cartsController = new CartsController

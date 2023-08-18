@@ -1,11 +1,8 @@
 import express from 'express';
 import passport from 'passport';
-import {
-    UserModel
-} from '../DAO/models/users.model.js';
 import UserDto from '../DAO/DTOs/user.Dto.js';
-import { createHash, isValidPassword } from '../utils.js';
 import { CartModel } from '../DAO/models/carts.model.js';
+import { UserModel } from '../DAO/models/users.model.js';
 export const routerLogin = express.Router();
 
 
@@ -20,15 +17,13 @@ routerLogin.post('/register', passport.authenticate('register', {
     }
 
     try {
-        // Crear un carrito asociado al usuario
+
         const newCart = new CartModel({
             products: [], 
         });
 
-        // Asociar el carrito al usuario recién registrado
         req.user.cart = newCart._id;
 
-        // Guardar el carrito y actualizar el usuario
         await Promise.all([newCart.save(), req.user.save()]);
 
         req.session.user = {
@@ -52,6 +47,8 @@ routerLogin.post('/register', passport.authenticate('register', {
         });
     }
 });
+
+
 
 
 routerLogin.post('/login', passport.authenticate('login', {
@@ -98,7 +95,6 @@ routerLogin.get('/github', passport.authenticate('github', { scope: ['user:email
 
 
 routerLogin.get('/githubcallback', passport.authenticate('github', { failureRedirect: '/error-auth' }), (req, res) => {
-
     req.session.user = req.user;
     res.redirect('/view/products');
 });
